@@ -19,9 +19,9 @@ jobs :
     strategy:
       matrix:
         node-version: [16.17.0]
-
+        
     steps:
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -31,22 +31,23 @@ jobs :
       run: npm install
     - name: Test
       run: npm run test:unit
-      
+
   build:
-      runs-on: ubuntu-latest
-
-      strategy:
-        matrix:
-          node-version: [16.17.0]
-
-      steps:
-      - uses: actions/setup-node@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - name: Ci
-        run: npm ci
-      - name: Build
-        run: npm run build
+  
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.17.0]
+        
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Setup
+      run: npm ci
+    - name: Test
+      run: npm run build
