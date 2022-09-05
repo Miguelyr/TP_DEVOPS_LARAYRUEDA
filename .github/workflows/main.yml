@@ -1,2 +1,33 @@
-npm install
-npm run test:unit
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  
+jobs :
+
+  unit-tests:
+  
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.7.0]
+        
+      steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+        - name: Setup
+          run: npm install
+        - name: Test
+          run: npm run test:unit
