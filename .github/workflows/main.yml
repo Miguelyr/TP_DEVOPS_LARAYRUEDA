@@ -18,7 +18,7 @@ jobs :
     
     strategy:
       matrix:
-        node-version: [16.7.0]
+        node-version: [16.17.0]
 
     steps:
     - uses: actions/setup-node@v3
@@ -37,7 +37,7 @@ jobs :
 
       strategy:
         matrix:
-          node-version: [16.7.0]
+          node-version: [16.17.0]
 
       steps:
       - uses: actions/setup-node@v3
